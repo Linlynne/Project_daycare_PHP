@@ -1,0 +1,33 @@
+{% extends "educator/master.html.twig" %}
+
+
+{% block content %}
+
+<a class="herf" href="/educator/childnotes_detail"><img src="/images/back.jpg" width="40px"/></a>
+<h1 class="edu" onmouseover="style.color='yellow'
+"onmouseout="style.color='green'"> Child Notes Edit<img src="/images/edit1.jpg" width="40px"/></h1>
+<div class="erro">
+{% if errorList %}
+    <ul>
+    {% for error in errorList %}
+        <li>{{ error }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+</div>
+   <form class="form" method="post"enctype="multipart/form-data" >
+    <input type="text"  hidden name="id"  value="{{note.id}}"><br/>
+    <input type="text"  hidden name="childId"  value="{{note.childId}}"><br/>
+    First Name: <input class="note"type="text" name="firstName" value="{{note.firstName}}"><br/>
+    Last Name: <input  class="note" type="text" name="lastName" value="{{note.lastName}}"><br/>
+    Image: <input  class="note" type="file" name="image"><br>
+    Height(cm): <input  class="note" type="textr" name="height" value="{{note.height }}"><br>
+    Weight(kg): <input  class="note" type="text" name="weight" value="{{ note.weight }}"><br>
+    Skill: <input  class="note" type="text" name="skills" value="{{ note.skills}}"><br>
+    Notes: <textarea  class="note" name="note">{{ note.note}}</textarea><br>
+   
+    <input  class="submitNote"type="submit" value="save">
+</form> 
+<div class = "pic"><img src="/images/kids.png" width="800" height="250" /></div>
+{% endblock content %}
+ 

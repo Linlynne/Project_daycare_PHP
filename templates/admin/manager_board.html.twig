@@ -1,0 +1,51 @@
+{% extends "admin/master.html.twig" %}
+
+{% block title %}Admin Board{% endblock %}
+
+ {% block addHead %}
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <script>
+    $(document).ready(function() {
+        $("#userlist").click(function(){
+            window.location.href="/admin/userlist";
+        });
+        $("#childrenlist").click(function(){
+            window.location.href="/admin/childrenlist";
+        });
+        $("#attendance").click(function(){
+            window.location.href="/admin/attendance";
+        });
+        $("#waitinglist").click(function(){
+            window.location.href="/admin/waitinglist";
+        });
+        $("#groupchart").click(function(){
+            window.location.href="/admin/groupchart";
+        });
+        $("#userlist1").click(function(){
+            window.location.href="/userlist.html";
+        });
+    });
+ </script>
+{% endblock %}
+
+{% block content %}
+
+<h2>Manager Account</h2><br/><br/>
+
+<div id="adminBoard">
+
+<button class="button" id="userlist">User List</button>
+
+<button class="button" id="childrenlist">Children List</button>
+
+<button class="button" id="attendance">Children Attendance</button>
+
+<button class="button" id="waitinglist">Waitinglist</button>
+
+<button class="button" id="groupchart">Group Chart</button>
+
+<button class="button" id="userlist1">User List (1st version)</button>
+
+</div>
+
+{% endblock %}

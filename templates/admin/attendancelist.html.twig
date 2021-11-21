@@ -1,0 +1,31 @@
+{% extends "admin/master.html.twig" %}
+
+{% block title %}Children Attendance{% endblock %}
+
+{% block content %}
+
+<h3>Date: {{list[0].date}}</h3>
+<h3>Group: {{list[0].groupName}}</h3><br/>
+
+<table class="admintable">
+    <tr><th>Child Name</th><th>Start Time</th><th>End Time</th><th>Status</th><th>Note</th></tr>
+    {% for a in list %}
+        <tr>
+            <td>{{a.firstName}} {{a.lastName}}</td>
+            <td>{{a.startTime}}</td>
+            <td>{{a.endTime}}</td>
+            <td>
+            {% if a.status == "present" %}
+                <img src="/images/daycare.png" width="30"/>
+            {% else %}
+                <img src="/images/absent.png" width="30"/>
+            {% endif %}
+            </td>
+            <td>{{a.note}}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+<p> <a href="/admin/attendance"><img src="/images/back.jpg" width="40px"/></a> </p>
+
+{% endblock %}

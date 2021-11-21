@@ -1,0 +1,61 @@
+{% extends "parent/master.html.twig" %}
+
+{% block title %}Add Child{% endblock %}
+
+{% block content %}
+
+{% if errorList %}
+    <ul class="errorlist">
+    {% for error in errorList %}
+        <li>{{ error }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+<div class="addChildInfoPage">
+<h3>Child info:</h3>
+
+<form class="infoform" method="post">
+    <div class="col-25">
+    First Name
+    </div>
+    <div class="col-75">
+     <input type="text" name="fname" value="{{v.fname}}"><br/>
+    </div>
+    <div class="col-25">
+    Last Name
+    </div>
+    <div class="col-75">
+    <input type="text" name="lname" value="{{v.lname}}"><br/>
+    </div>
+    <div class="col-25">
+    Gender
+    </div>
+    <div class="col-75">
+      <select name="gender">
+            <option value="F">Female</option>
+            <option value="M">Male</option>
+            </select><br/>
+    </div>
+    <div class="col-25">
+    Date of birth
+    </div>
+    <div class="col-75">
+     <input type="text" name="dob" placeholder="2019-08-31" value="{{v.dob}}"><br/>
+    </div>
+    <div class="col-25">
+    Has siblings
+    </div>
+    <div class="col-75">
+    <select name="sibling">
+                <option value="Y">Yes</option>
+                <option value="N">No</option>
+                </select><br/>
+    </div>
+    <input type="submit" value="Apply a place">
+</form>
+</div>
+
+<a class="herf" href="/parent/parent_board"><img src="/images/back.jpg" width="40px"/></a><br>
+
+{% endblock content %}

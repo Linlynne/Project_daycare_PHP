@@ -1,0 +1,58 @@
+{% extends "admin/master.html.twig" %}
+
+{% block title %}Group Chart{% endblock %}
+
+{% block addHead %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<h2>Group Chart</h2>
+
+<div id="chart">
+    <canvas id="myChart"></canvas>
+</div>
+
+<script>
+    const labels = [
+  'Babies',
+  'Toddlers',
+  'Big kids',
+  'Preschoolers',
+];
+
+const data = {
+  labels: labels,
+  datasets: [{
+    label: 'Group Chart',
+    backgroundColor: [
+        'rgba(41, 128, 185,0.8)',
+        'rgba(46, 204, 113,0.8)',
+        'rgba(214, 137, 16,0.8)',
+        'rgba(192, 57, 43,0.8)'
+        ],
+    borderColor: [
+        'rgba(41, 128, 185,0.8)',
+        'rgba(46, 204, 113,0.8)',
+        'rgba(214, 137, 16,0.8)',
+        'rgba(192, 57, 43,0.8)'
+        ],
+    data: [ {% for val in list %}{{val}}{% if not loop.last %},{% endif %}{% endfor %} ] // [3,3,2,1],   
+  }]
+};
+
+const config = {
+  type: 'pie',
+  data: data,
+  options: {}
+};
+
+ const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+</script>
+
+<p> <a href="/admin/"><img src="/images/back.jpg" width="40px"/></a> </p>
+{% endblock %}

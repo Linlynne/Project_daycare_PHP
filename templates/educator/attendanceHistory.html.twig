@@ -1,0 +1,27 @@
+{% extends "educator/master.html.twig" %}
+
+{% block content %}
+<a class="herf" href="/educator/childlist"><img src="/images/back.jpg" width="40px"/></a>
+<h1 class="edu"onmouseover="style.color='yellow'
+"onmouseout="style.color='green'" ><img src="/images/child.jpg" width="70px"/>Child  Attendance List</h1>
+
+<a  class="herf3" href="/educator/child_attendance?childId={{childId}}"><img src="/images/note.jpg" width="60px"/></a> </p>
+
+<h5  class"date">Date: {{today}}<h5><br>
+
+<table class="admintable1">
+   <tr> <th>First Name:{{child.firstName}}</th>
+    <th>Last Name:{{child.lastName}}</td></tr>
+  <tr><th class="th">Date</th><th class="th1">Start Time</th><th class="th1">End Time</th><th class="th">Statu<th class="th">Notes</th><th class="th">Romove</th></tr>
+    {% for a in list %}
+        <td class="th1"> {{a.date}}</td>
+        <td class="th" >{{a.startTime}} </td>
+        <td class="th"> {{a.endTime}} </td>  
+        <td class="th" >{{a.status}} </td>
+        <td class="th1">{{a.note}} </td>   
+        <td class="th"><a href="/educator/attendance_remove?attendanceId={{a.attendanceId}}&childId={{a.childId}}"> <img src="/images/remove-friend.png" width="30px"/></a><br>
+        </tr>
+    {% endfor %}
+</table>
+<div class = "pic"><img src="/images/kids.png" width="800" height="250" /></div>
+{% endblock content %}

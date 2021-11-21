@@ -1,0 +1,43 @@
+{% extends "educator/master.html.twig" %}
+
+
+{% block content %}
+
+<a class="herf" href="/educator/childlist"><img src="/images/back.jpg" width="40px"/></a>
+<div class="erro">
+{% if errorList %}
+  <ul>
+    {% for error in errorList %}
+        <li>{{ error }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}</div>
+
+<h1 class ="edu" onmouseover="style.color='yellow'
+"onmouseout="style.color='green'"><img src="/images/child.jpg" width="70px"/> Child Note Form</h1>
+   <form class="form" method="post"enctype="multipart/form-data" >
+
+   <input type="text"hidden name="childId"  value="{{child.id}}"><br/>
+    First Name: <input class ="note"type="text" readonly name="firstName" value="{{child.firstName}}"><br/>
+    Last Name: <input class ="note" type="text" readonly name="lastName" value="{{child.lastName}}"><br/>
+    Image: <input class ="note" type="file" name="image"><br>
+    Height(cm): <input class ="note" type="textr" name="height"><br>
+    Weight(kg): <input class ="note" type="text" name="weight"><br>
+    Skill: <input class ="note" type="text" name="skills" ><br>
+    Notes: <textarea class ="note" name="note"></textarea><br>
+    <input class ="submitNote"  type="submit" value="submit">
+</form> 
+<div class = "pic"><img src="/images/kids.png" width="800" height="250" /></div>
+{% endblock content %}
+ 
+
+
+
+
+
+
+
+
+
+
+ 

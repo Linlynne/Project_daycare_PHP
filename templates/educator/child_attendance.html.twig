@@ -1,0 +1,64 @@
+{% extends "educator/master.html.twig" %}
+
+
+{% block content %}
+<a  class="herf" href="/educator/childlist"><img src="/images/back.jpg" width="40px"/></a>
+<h1 class="edu" onmouseover="style.color='yellow'
+"onmouseout="style.color='green'"><img src="/images/child.jpg" width="70px"/>Attendance Form</h1>
+<h5  class"date">Date: {{today}}</h5><br>
+<br><div id="clock"></div>
+
+<div class= "erro">
+{% if errorList %}
+
+    {% for error in errorList %}
+        <li>{{ error }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}</div>
+<form class="form" method = "post" enctype="multipart/form-data">
+        <input type="text" hidden name="childId"  value="{{child.id}}"><br/>
+        First Name: <input class ="note"type="text" name="firstName" value="{{child.firstName}}" readonly><br/>
+        Last Name: <input class ="note" type="text" name="lastName" value="{{child.lastName}}" readonly><br>
+        Date:<input class ="note" type="date" name="date"><br>
+        Start Time:<input class ="note" type="time" name="startTime"><br>
+        Leave Time:<input class ="note" type="time" name="endTime"><br>
+        Staus: <select class ="note" name="status"><br>
+    <option value="present">Present</option>
+    <option value="absent">Absent</option>
+</select><br/>
+        Notes: <textarea  class ="note" name="note"></textarea><br>
+        <input class ="submitNote" type="submit" value="submit">
+    </form>
+       <br><br>
+       <div class = "pic"><img src="/images/kids.png" width="800" height="250" /></div>
+<script>
+function currentTime() {
+  var date = new Date(); /* creating object of Date class */
+  var hour = date.getHours();
+  var min = date.getMinutes();
+  var sec = date.getSeconds();
+  hour = updateTime(hour);
+  min = updateTime(min);
+  sec = updateTime(sec);
+  document.getElementById("clock").innerText = hour + " : " + min + " : " + sec; /* adding time to the div */
+    var t = setTimeout(function(){ currentTime() }, 1000); /* setting timer */
+}
+
+function updateTime(k) {
+  if (k < 10) {
+    return "0" + k;
+  }
+  else {
+    return k;
+  }
+}
+
+currentTime(); /* calling currentTime() function to initiate the process */
+
+</script>
+
+
+
+
+{% endblock content %}

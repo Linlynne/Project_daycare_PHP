@@ -1,0 +1,38 @@
+{% extends "educator/master.html.twig" %}
+
+{% block content %}
+<a class="herf" href="/educator/educator_board"><img src="/images/back.jpg" width="40px"/></a> 
+<h1 class ="edu" onmouseover="style.color='yellow'
+"onmouseout="style.color='green'" ><img src="/images/child.jpg" width="70px"/>Group Children List</h1>
+
+<div class = "name"><h5 class="group">Group: {{educator.groupAll}}</h5>
+    <h5 class="group">Educator: {{educator.fullName}}</h5><div>
+
+ <table class="admintable1">
+        <tr><th class="th1">First Name</th><th class="th1" >Last Name</th><th class="th1" >Gender</th><th class="th1">Date Of Birth</th><th class="th1">EmerContactName</th><th class="th1">EmergencyPhone</th><th class="th1"> Note</th><th class="th1">Addtendance</th></tr>
+        {% for a in list %}
+        <tr>
+        <td class="th">{{a.firstName}}</td>
+        <td class="th">{{a.lastName}}</td>
+        
+         <td class="th">{% if a.gender == "F" %}
+  <img src="/images/female.png" width="30px"/>
+{% else %}
+   <img src="/images/male.png" width="30px"/>
+{% endif %}</td>
+        <td class="th" >{{a.dateOfBirth}}</td>
+        <td class="th">{{a.emergencyContact}}</td>
+        <td class="th">{{a.emergencyPhone}}</td>
+        <td class="th"><form action="/educator/noteHistory">
+                <input type="text"  hidden name="id" value="{{a.id}}">
+                <input class ="submitList" type="submit" value="Note List"></form></a></td>
+     
+        <td class="th"><form action="/educator/attendanceHistory">
+                <input type="text" hidden name="id" value="{{a.id}}" >
+                <input class = "submitList" type="submit" value="Attendance List"></form></a></td>
+        </tr>
+        {% endfor %}
+    </table>
+   
+<div class = "pic"><img src="/images/kids.png" width="800" height="250" /></div>
+{% endblock content %}

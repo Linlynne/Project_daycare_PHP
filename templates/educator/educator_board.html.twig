@@ -1,0 +1,42 @@
+{% extends "educator/master.html.twig" %}
+{% block title %}Educator Board{% endblock %}
+{% block addHead %}
+ <link rel="stylesheet" href="/css.css"/>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <script>
+    $(document).ready(function() {
+        
+        $("#childrenlist1").click(function(){
+            window.location.href="/educator/childlist";
+        });
+        $("#attendance1").click(function(){
+            window.location.href="/educator/child_attendance_detail";
+        });
+        $("#waitinglist1").click(function(){
+            window.location.href="/educator/childnotes_detail";
+        });
+        $("#home1").click(function(){
+            window.location.href="/logout";
+        });
+    });
+ </script>
+{% endblock %}
+
+{% block content %}
+
+<h1 class ="edu" onmouseover="style.color='yellow'
+"onmouseout="style.color='green'"><img src="/images/child.jpg" width="70px"/>Educator Account</h1>
+
+<div id="educatorBoard">
+
+<button class="button1" id="childrenlist1">Children List(Group)</button>
+
+<button class="button1" id="attendance1">Children Attenance List</button>
+
+<button class="button1" id="waitinglist1">Children Notes List</button>
+
+</div>
+
+
+<div class = "pic"><img src="/images/kids.png" width="800" height="250" /></div>
+{% endblock %}

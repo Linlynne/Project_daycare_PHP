@@ -1,0 +1,55 @@
+{% extends "master.html.twig" %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+
+{% if errorList %}
+    <ul class="errorlist">
+    {% for error in errorList %}
+        <li>{{ error }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+<h3>User info:</h3>
+
+<form class="infoform" method="post">
+    <div class="col-25">
+    First Name
+    </div>
+    <div class="col-75">
+     <input type="text" name="fname" value="{{v.fname}}"><br/>
+     </div>
+    <div class="col-25">
+    Last Name 
+    </div>
+    <div class="col-75">
+    <input type="text" name="lname" value="{{v.lname}}"><br/>
+    </div>
+    <div class="col-25">
+    Gender
+    </div>
+    <div class="col-75"> 
+     <select name="gender">
+            <option value="F">Female</option>
+            <option value="M">Male</option>
+            </select><br/>
+    </div>
+    <div class="col-25">
+    Phone Number
+    </div>
+    <div class="col-75">
+     <input type="text" name="phone" placeholder="888-888-8888" value="{{v.phone}}"><br/>
+     </div>
+    <div class="col-25">
+    Address 
+    </div>
+    <div class="col-75">
+    <input type="text" name="address" value="{{v.address}}"><br/>
+    </div>
+    <input type="submit" value="Submit">
+</form>
+
+
+{% endblock content %}

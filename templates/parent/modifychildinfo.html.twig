@@ -1,0 +1,135 @@
+{% extends "parent/master.html.twig" %}
+
+{% block title %}Children information:{% endblock %}
+
+{% block addHead %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        var currId = 0;
+        $(document).ajaxError(function() {
+            alert("AJAX error");
+        });
+        $(document).ready(function() {
+            $("#showEidtUser").click(function(){
+                $("#childrenInfoViewEditPane").show();
+            });
+            $("#childrenInfoCancel").click(function(){
+                $("#childrenInfoViewEditPane").hide();
+            });
+            $("#childrenInfoUpdate").click(function(){
+                var emergencyContactVal = $("input[name=childrenInfoEmergencyContact]").val();
+                var emergencyPhoneVal = $("input[name=childrenInfoEmergencyPhone]").val();
+                var childObj = {emergencyContact: emergencyContactVal, emergencyPhone: emergencyPhoneVal};
+                var josnString = JSON.stringify(childObj);
+
+                $.ajax({
+                    url: '/parent/modifychildinfo/' + currId,
+                    type: 'PATCH',
+                    data: josnString,
+                    dataType: 'json'
+                }).done(function (newId) {
+                    alert("Record with Id=" + currId + "updated");
+                    currId = 0;
+                    $("#childrenInfoViewEditPane").hide();
+                    refreshChildList();
+
+                });
+            });
+
+        });
+        
+        function selectChild(id){
+            $.ajax({
+                url: '/parent/modifychildinfo/' + id,
+                type: 'GET',
+                dataType: 'json'
+            }).done(function (child) {
+                currId = child.id;
+                $("#childrenInfoName").html(child.firstName + " " + child.lastName);
+                $("#childrenInfoGender").html(child.gender);
+                $("#childrenInfoDOB").html(child.dateOfBirth);
+                $("input[name=childrenInfoEmergencyContact]").val(child.emergencyContact);
+                $("input[name=childrenInfoEmergencyPhone]").val(child.emergencyPhone);
+                $("#childrenInfoViewEditPane").show();
+            });
+        };
+
+        function refreshChildList() {
+            location.reload();
+            // $.ajax({
+            //     url: '/parent/modifychildinfo',
+            //     type: 'GET',
+            //     dataType: 'json'
+            // }).done(function (child) {
+            //     var tbody = '<tr><th>ID</th><th>First Name</th><th>Last Name</th><th>Gender</th><th>Date Of Birth</th><th>Emergency Contact</th><th>Emergency Phone</th></tr>';
+            //     for (var i = 0; i < childList.length; i++) {
+            //         var child = childList[i];
+            //         tbody += '<tr onclick="selectUser(' + child.id + ')">';
+            //         tbody += '<td>' + child.id + '</td>';
+            //         tbody += '<td>' + child.firstName + '</td>';
+            //         tbody += '<td>' + child.lastName + '</td>';
+            //         tbody += '<td>' + child.gender + '</td>';
+            //         tbody += '<td>' + child.dateOfBirth + '</td>';
+            //         tbody += '<td>' + child.emergencyContact + '</td>';
+            //         tbody += '<td>' + child.emergencyPhone + '</td>';
+            //         tbody += '</tr>';
+            //     }
+            //     $("#childrenInfoMainPane").html(tbody);
+            // });
+        }
+
+    </script>
+ {% endblock %}
+
+{% block content %}
+
+<div id="childrenInfoMainPane">
+    <div id="childrenInfoListPane">
+        <table id="childrenInfoListTable" class="table table-hover table-info">
+            <tr><th>ID</th><th>First Name</th><th>Last Name</th><th>Gender</th><th>Date Of Birth</th><th>Emergency Contact</th><th>Emergency Phone</th></tr>
+            {% for a in list %}
+            <tr onclick="selectChild('{{a.id}}')" data-toggle="modal" data-target="#exampleModalCenter">
+                <td>{{a.id}}</td>
+                <td>{{a.firstName}}</td>
+                <td>{{a.lastName}}</td>
+                <td>{{a.gender}}</td>
+                <td>{{a.dateOfBirth}}</td>
+                <td>{{a.emergencyContact}}</td>
+                <td>{{a.emergencyPhone}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <a class="herf" href="/parent/parent_board"><img src="/images/back.jpg" width="40px"/></a><br>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{a.firstName}} {{a.lastName}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="childrenInfoViewEditPane">
+        Name: <span id="childrenInfoName">{{a.firstName}} {{a.lastName}}</span><br/>
+        Gender: <span id="childrenInfoGender">{{a.gender}}</span><br/>
+        Date Of Birth: <span id="childrenInfoDOB">{{a.dateOfBirth}}</span><br/>
+        Emergency Contact: <input type="text" name="childrenInfoEmergencyContact"><br/>
+        Emergency Phone: <input type="text" name="childrenInfoEmergencyPhone" placeholder="888-888-8888"><br/>
+        {# <button id="childrenInfoUpdate">Update</button> #}
+        {# <button id="childrenInfoCancel">Cancel</button> #}
+    </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id="childrenInfoUpdate" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+{% endblock content %}
